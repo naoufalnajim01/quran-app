@@ -13,12 +13,12 @@
 [![Lumen](https://img.shields.io/badge/Lumen-9.x-E74430?style=for-the-badge&logo=lumen&logoColor=white)](https://lumen.laravel.com/)
 
 <p align="center">
-  <a href="#-fonctionnalités">Fonctionnalités</a> •
-  <a href="#-démo">Démo</a> •
-  <a href="#-technologies">Technologies</a> •
-  <a href="#-sécurité">Sécurité</a> •
-  <a href="#-installation">Installation</a> •
-  <a href="#-apis">APIs</a>
+  <a href="#-fonctionnalités--المميزات">Fonctionnalités</a> •
+  <a href="#-démo--العرض-التوضيحي">Démo</a> •
+  <a href="#%EF%B8%8F-technologies--التقنيات-المستخدمة">Technologies</a> •
+  <a href="#-sécurité--الأمان">Sécurité</a> •
+  <a href="#-installation--التثبيت">Installation</a> •
+  <a href="#-apis-utilisées--واجهات-برمجة-التطبيقات">APIs</a>
 </p>
 
 </div>
