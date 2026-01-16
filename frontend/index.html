@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com data:;
+      img-src 'self' data: http: https: blob:;
+      media-src 'self' https://everyayah.com https://*.everyayah.com;
+      connect-src 'self' 
+        http://localhost:8000 
+        http://127.0.0.1:8000
+        https://quran.connectapps.org
+        https://api.aladhan.com 
+        https://api.alquran.cloud 
+        https://cdn.jsdelivr.net
+        https://everyayah.com
+        https://*.everyayah.com
+        https://alquran-api.pages.dev;
+      base-uri 'self';
+      form-action 'self';
+    " />
+
+  <meta name="description" content="تطبيق القرآن الكريم - قراءة واستماع وتفسير القرآن الكريم" />
+  <meta name="keywords" content="quran, القرآن, الكريم, تلاوة, تفسير" />
+
+
+  <meta property="og:title" content="القرآن الكريم" />
+  <meta property="og:description" content="تطبيق قرآني حديث ومفتوح المصدر" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/logo.png" />
+
+  <title>القرآن الكريم</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

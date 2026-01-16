@@ -1,0 +1,81 @@
+# Security Headers for Apache
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Enable XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Prevent Clickjacking
+    Header always set X-Frame-Options "DENY"
+    
+    # Control Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Header always set Permissions-Policy "geolocation=(self), microphone=()"
+    
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https://everyayah.com https://*.everyayah.com; connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 https://api.aladhan.com https://api.alquran.cloud https://cdn.jsdelivr.net https://everyayah.com https://*.everyayah.com https://alquran-api.pages.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    
+    # Strict Transport Security (HTTPS only - enable when using HTTPS)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Disable server signature
+ServerSignature Off
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config files
+<FilesMatch "(\.env|\.git|\.htaccess|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block common exploits
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block SQL injection attempts
+    RewriteCond %{QUERY_STRING} (union.*select|insert.*into|delete.*from|drop.*table|update.*set) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block base64 encoded content
+    RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block script injection attempts
+    RewriteCond %{QUERY_STRING} (\<script.*\>|javascript:) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Rate limiting (if mod_ratelimit is available)
+<IfModule mod_ratelimit.c>
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 500
+</IfModule>
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/json "access plus 1 day"
+</IfModule>
