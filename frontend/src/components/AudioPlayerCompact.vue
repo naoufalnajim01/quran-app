@@ -3,9 +3,9 @@
     <!-- Lecteur Audio Complet -->
     <div class="flex flex-col gap-2 p-3 rounded-xl bg-gradient-to-r from-muted/50 to-muted/30 border border-border/50 shadow-sm">
       <!-- Row 1: Info + Controls + Récitateur -->
-      <div class="flex items-center gap-3">
+      <div class="flex gap-3" :class="mobile ? 'flex-wrap' : 'items-center'">
         <!-- Sélecteur de Surah -->
-        <div class="flex-1 min-w-0 relative surah-selector">
+        <div class="relative surah-selector" :class="mobile ? 'w-[48%] order-1' : 'flex-1 min-w-0'">
           <button 
             @click="showSurahMenu = !showSurahMenu"
             class="flex items-center gap-2 w-full px-2 py-1.5 rounded-lg hover:bg-background/50 transition-colors group"
@@ -43,7 +43,7 @@
         </div>
 
         <!-- Controls -->
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1" :class="mobile ? 'w-full order-3 justify-center mt-1' : ''">
           <button 
             @click="previousAyah"
             class="p-2 rounded-full hover:bg-background/70 transition-colors text-muted-foreground hover:text-foreground"
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Sélecteur de Récitateur -->
-        <div class="flex-1 min-w-0 hidden md:block relative reciter-selector">
+        <div class="relative reciter-selector" :class="mobile ? 'w-[48%] order-2 block' : 'flex-1 min-w-0 hidden md:block'">
           <button 
             @click="showReciterMenu = !showReciterMenu"
             class="flex items-center gap-2 w-full px-2 py-1.5 rounded-lg hover:bg-background/50 transition-colors"
@@ -83,7 +83,7 @@
           </button>
           
           <Transition name="dropdown">
-            <div v-if="showReciterMenu" class="absolute top-full right-0 mt-2 w-64 max-h-80 overflow-y-auto bg-background border border-border rounded-xl shadow-xl z-50 custom-scrollbar">
+            <div v-if="showReciterMenu" class="absolute top-full right-0 mt-2 w-64 max-w-[85vw] max-h-80 overflow-y-auto bg-background border border-border rounded-xl shadow-xl z-50 custom-scrollbar">
               <div class="p-2 space-y-1">
                 <button
                   v-for="reciter in reciters"
