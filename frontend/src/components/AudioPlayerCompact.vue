@@ -268,8 +268,9 @@ const selectReciter = (reciter) => {
 const loadAudio = () => {
   if (!audioPlayer.value || !store.currentSurah || !store.currentPlayingAyahId) return
   
-  // Utiliser directement l'ID du récitateur du store (qui correspond au nom du dossier EveryAyah)
-  const reciterFolder = store.selectedReciter?.id || store.selectedReciter?.slug || 'Alafasy_128kbps'
+  // Trouver le récitateur et utiliser son dossier
+  const reciter = store.availableReciters.find(r => r.id === store.selectedReciter)
+  const reciterFolder = reciter?.folder || 'Alafasy_128kbps'
   const surahNum = String(store.currentSurah.number).padStart(3, '0')
   const ayahNum = String(store.currentPlayingAyahId).padStart(3, '0')
   

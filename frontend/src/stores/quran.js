@@ -60,7 +60,7 @@ export const useQuranStore = defineStore('quran', {
             { id: 'ar.sudais', name: 'عبدالرحمن السديس', folder: 'Abdurrahmaan_As-Sudais_192kbps' },
             { id: 'ar.shuraim', name: 'سعود الشريم', folder: 'Saood_ash-Shuraym_128kbps' },
             { id: 'ar.ajamy', name: 'أحمد العجمي', folder: 'Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net' },
-            { id: 'ar.maher', name: 'ماهر المعيقلي', folder: 'MasQloud128' },
+            { id: 'ar.maher', name: 'ماهر المعيقلي', folder: 'MaherAlMuaiqly128kbps' },
             { id: 'ar.ghamdi', name: 'سعد الغامدي', folder: 'Ghamadi_40kbps' },
             { id: 'ar.dosari', name: 'ياسر الدوسري', folder: 'Yasser_Ad-Dussary_128kbps' }
         ],
@@ -241,6 +241,13 @@ export const useQuranStore = defineStore('quran', {
         },
 
         async fetchSurahs() {
+            // Valider selectedReciter au cas où localStorage contient une ancienne valeur
+            const validReciters = this.availableReciters.map(r => r.id)
+            if (!validReciters.includes(this.selectedReciter)) {
+                this.selectedReciter = 'ar.alafasy'
+                localStorage.setItem('selectedReciter', 'ar.alafasy')
+            }
+
             this.loading = true
             this.error = null
             try {
