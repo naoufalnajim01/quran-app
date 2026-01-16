@@ -25,7 +25,7 @@
           </button>
           
           <Transition name="dropdown">
-            <div v-if="showSurahMenu" class="absolute top-full left-0 mt-2 w-64 max-h-80 overflow-y-auto bg-background border border-border rounded-xl shadow-xl z-50 custom-scrollbar">
+            <div v-if="showSurahMenu" class="absolute top-full right-0 mt-2 w-64 max-w-[85vw] max-h-80 overflow-y-auto bg-background border border-border rounded-xl shadow-xl z-50 custom-scrollbar">
               <div class="p-2 space-y-1">
                 <button
                   v-for="surah in store.surahs"
