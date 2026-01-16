@@ -44,8 +44,8 @@
                 </h2>
             </div>
             
-            <!-- Grid 4 colonnes responsive -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Grid 5 colonnes responsive pour une seule ligne sur desktop -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                  <!-- القرآن الكريم -->
                 <button @click="showSurahModal = true" class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 border-2 border-primary/30 group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="absolute top-0 left-0 p-3 opacity-10 group-hover:scale-110 transition-transform duration-500">
@@ -57,6 +57,20 @@
                         </div>
                         <h3 class="text-lg font-bold font-arabic mb-1 text-primary">القرآن الكريم</h3>
                         <p class="text-xs text-muted-foreground font-arabic leading-relaxed">تصفح جميع السور</p>
+                    </div>
+                </button>
+
+                 <!-- المصحف الشريف -->
+                <button @click="showMushafViewer = true" class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 border border-amber-100 dark:border-amber-900 group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="absolute top-0 left-0 p-3 opacity-10 group-hover:scale-110 transition-transform duration-500">
+                        <BookOpen class="w-24 h-24 text-amber-500" />
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-xl bg-white dark:bg-amber-900/50 shadow-md flex items-center justify-center mb-4 text-amber-600 dark:text-amber-400 group-hover:rotate-6 transition-transform">
+                            <BookOpen class="w-6 h-6" />
+                        </div>
+                        <h3 class="text-lg font-bold font-arabic mb-1 text-amber-900 dark:text-amber-100">المصحف الشريف</h3>
+                        <p class="text-xs text-amber-700/80 dark:text-amber-300/80 font-arabic leading-relaxed">تصفح صفحات المصحف</p>
                     </div>
                 </button>
 
@@ -343,6 +357,9 @@
     <!-- About Modal -->
     <AboutModal :show="showAboutModal" @close="showAboutModal = false" />
     
+    <!-- Mushaf Viewer -->
+    <MushafViewer v-if="showMushafViewer" @close="showMushafViewer = false" />
+    
     <!-- Clavier Arabe -->
     <ArabicKeyboard />
     
@@ -356,7 +373,7 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { 
   AlertCircle, Heart, Github, Search, Bookmark, Library,
   Volume2, Menu, Home, Info, ExternalLink,
-  Code2, User, Shield, Code, Zap, Scale, Sparkles
+  Code2, User, Shield, Code, Zap, Scale, Sparkles, BookOpen
 } from 'lucide-vue-next'
 import { useQuranStore } from './stores/quran'
 import AppHeader from './components/AppHeader.vue'
@@ -375,6 +392,7 @@ import CollectionManager from './components/CollectionManager.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 import WelcomeModal from './components/WelcomeModal.vue'
 import AboutModal from './components/AboutModal.vue'
+import MushafViewer from './components/MushafViewer.vue'
 import ArabicKeyboard from './components/ArabicKeyboard.vue'
 import ScrollToTop from './components/ScrollToTop.vue'
 import SearchResults from './components/SearchResults.vue'
@@ -384,6 +402,7 @@ const activeCollection = ref(null)
 const selectedSurah = ref(null)
 const showAboutModal = ref(false)
 const showSurahModal = ref(false)
+const showMushafViewer = ref(false)
 
 // Watcher pour la recherche
 let searchTimeout
