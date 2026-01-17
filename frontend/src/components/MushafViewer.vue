@@ -58,6 +58,18 @@
 
           <!-- Actions -->
           <div class="flex items-center gap-2">
+            <!-- Index Button -->
+            <button
+              @click="showIndex = true"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors border border-primary/20"
+              title="فهرس السور"
+            >
+              <img src="/logo.png" alt="الفهرس" class="w-[18px] h-[18px] rounded-sm" />
+              <span class="font-arabic-bold text-sm text-primary hidden md:inline">الفهرس</span>
+            </button>
+
+            <div class="w-px h-6 bg-border"></div>
+
             <!-- Zoom out -->
             <button
               @click="zoomOut"
@@ -151,6 +163,13 @@
         استخدم الأسهم ← → للتنقل بين الصفحات
       </p>
     </div>
+
+    <!-- Mushaf Index Modal -->
+    <MushafIndex 
+      v-if="showIndex"
+      @close="showIndex = false"
+      @select-surah="handleSurahSelect"
+    />
   </div>
 </template>
 
@@ -163,8 +182,9 @@ import {
   ZoomIn, 
   ZoomOut, 
   Maximize2, 
-  Minimize2 
+  Minimize2
 } from 'lucide-vue-next'
+import MushafIndex from './MushafIndex.vue'
 
 defineEmits(['close'])
 
@@ -175,6 +195,7 @@ const zoom = ref(100)
 const isLoading = ref(true)
 const isFullscreen = ref(false)
 const viewerContainer = ref(null)
+const showIndex = ref(false)
 
 // URL de l'image de la page courante
 const currentPageUrl = computed(() => {
@@ -251,6 +272,12 @@ const toggleFullscreen = () => {
 const handleImageError = () => {
   console.error(`Erreur de chargement de la page ${currentPage.value}`)
   isLoading.value = false
+}
+
+// Gestion de la sélection d'une sourate depuis l'index
+const handleSurahSelect = ({ surah, page }) => {
+  currentPage.value = page
+  isLoading.value = true
 }
 
 // Raccourcis clavier

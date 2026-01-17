@@ -215,15 +215,18 @@ export const useQuranStore = defineStore('quran', {
                 const results = []
                 const normalizedQuery = removeTashkeel(sanitizedQuery)
 
-                for (const surah of this.quranData.surahs) {
-                    for (const ayah of surah.ayahs) {
+                // quranData est directement un tableau de sourates
+                const surahs = Array.isArray(this.quranData) ? this.quranData : this.quranData.surahs || []
+
+                for (const surah of surahs) {
+                    for (const ayah of (surah.verses || surah.ayahs || [])) {
                         const normalizedText = removeTashkeel(ayah.text)
                         if (normalizedText.includes(normalizedQuery)) {
                             results.push({
                                 ...ayah,
-                                surah_id: surah.number,
-                                surah_name: surah.name,
-                                surah_name_ar: surah.name_ar || surah.name
+                                surah_id: surah.id || surah.number,
+                                surah_name: surah.transliteration || surah.name_en || surah.name,
+                                surah_name_ar: surah.name || surah.name_ar
                             })
                         }
                         if (results.length >= 50) break
